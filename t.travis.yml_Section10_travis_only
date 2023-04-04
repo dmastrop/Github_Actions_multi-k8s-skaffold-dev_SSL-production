@@ -5,10 +5,10 @@ services:
   - docker
 
 before_install:
-  - docker build -t dave123456789/complex-multi -f ./client/Dockerfile.dev ./client
+  - docker build -t dave123456789/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true dave123456789/complex-multi npm test
+  - docker run -e CI=true dave123456789/react-test npm test
 
 after_success:
   - docker build -t dave123456789/multi-client ./client
@@ -22,3 +22,15 @@ after_success:
   - docker push dave123456789/multi-nginx
   - docker push dave123456789/multi-server
   - docker push dave123456789/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-west-1'
+  app: 'multi-docker'
+  env: 'MultiDocker-env'
+  bucket_name: 'elasticbeanstalk-us-west-1-725291656587'
+  bucket_path: 'docker-multi'
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
