@@ -3,7 +3,7 @@ Rename the docker-compose.yml file to docker-compose-dev.yml.
 Going forward you will need to pass a flag to specify which compose file you want to build and run from:
 docker-compose -f docker-compose-dev.yml up 
 docker-compose -f docker-compose-dev.yml up --build
-docker-compose -f docker-compose-dev.yml down      <<<< these will now be used to bring up Section 10 set up http://locahost:3050 the basic server setup.
+docker-compose -f docker-compose-dev.yml down      <<<< these will now be used to bring up Section 10 development set up http://locahost:3050 the basic server setup.
 
 Create a production only docker-compose.yml file
 The production compose file will follow closely what was written in the Dockerrun.aws.json. There are two major differences:
