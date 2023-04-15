@@ -13,8 +13,11 @@ before_install:
   - gcloud components update kubectl
   # my file is service.account.json.enc and so use service.account.json as output. see above.
   - gcloud auth activate-service-account --key-file service.account.json
-  - gcloud config set project steady-petal-307322
-  - gcloud config set compute/zone us-central1-c
+  # my project is multi-k8s-383721
+  - gcloud config set project multi-k8s-383721
+  # my compute zone is us-west2-a
+  - gcloud config set compute/zone us-west2-a
+  # cluster is needed for kubectl commands. My cluster is multi-cluster
   - gcloud container clusters get-credentials multi-cluster
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t stephengrider/react-test -f ./client/Dockerfile.dev ./client
