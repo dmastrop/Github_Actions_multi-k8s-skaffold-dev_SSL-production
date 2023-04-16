@@ -6,7 +6,7 @@ env:
     - SHA=$(git rev-parse HEAD)
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
-# this is my openssl for my encrypted google secret key from json file.
+# this is my openssl for my encrypted google secret key from json file. Note service.account.json.enc needs to be in /complex directory
   - openssl aes-256-cbc -K $encrypted_5ec6ae011e27_key -iv $encrypted_5ec6ae011e27_iv -in service.account.json.enc -out service.account.json -d
   - curl https://sdk.cloud.google.com | bash > /dev/null;
   - source $HOME/google-cloud-sdk/path.bash.inc
@@ -20,7 +20,7 @@ before_install:
   # cluster is needed for kubectl commands. My cluster is multi-cluster
   - gcloud container clusters get-credentials multi-cluster
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t stephengrider/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t dave123456789/react-test -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run -e CI=true stephengrider/react-test npm test
