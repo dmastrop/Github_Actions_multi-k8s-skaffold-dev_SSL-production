@@ -2,7 +2,8 @@ name: Deploy MultiK8s
 on:
   push:
     branches:
-      - main
+    # make sure to change this to master
+      - master
  
 env:
   SHA: $(git rev-parse HEAD)
