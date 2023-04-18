@@ -50,7 +50,7 @@ jobs:
       
       - name: Push
       # lastest is pushed because if someone runs kubectl apply -f k8s from build directory we want to insure they load current latest (this image)
-          un: |-
+        run: |-
           docker push dave123456789/multi-client-k8s-gh:latest
           docker push dave123456789/multi-server-k8s-pgfix-gh:latest
           docker push dave123456789/multi-worker-k8s-gh:latest
