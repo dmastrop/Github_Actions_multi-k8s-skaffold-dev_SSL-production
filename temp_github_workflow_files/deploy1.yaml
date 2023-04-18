@@ -24,7 +24,7 @@ jobs:
         - name: Set Service Key
           uses: 'google-github-actions/auth@v0'
           with:
-          c redentials_json: '${{ secrets.GKE_SA_KEY }}'
+           credentials_json: '${{ secrets.GKE_SA_KEY }}'
  
         - name: Set Project
           uses: google-github-actions/setup-gcloud@v0
@@ -33,7 +33,7 @@ jobs:
  
         - name: Auth
           run: |-
-          g cloud --quiet auth configure-docker
+           gcloud --quiet auth configure-docker
  
         - name: Get Credentials
           uses: google-github-actions/get-gke-credentials@v0
@@ -54,7 +54,7 @@ jobs:
           run: |-
             docker push dave123456789/multi-client-k8s-gh:latest
             docker push dave123456789/multi-server-k8s-pgfix-gh:latest
-            ocker push dave123456789/multi-worker-k8s-gh:latest
+            docker push dave123456789/multi-worker-k8s-gh:latest
  
             docker push dave123456789/multi-client-k8s-gh:${{ env.SHA }}
             docker push dave123456789/multi-server-k8s-pgfix-gh:${{ env.SHA }}
