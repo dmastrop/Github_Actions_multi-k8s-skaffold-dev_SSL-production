@@ -9,66 +9,60 @@ env:
   SHA: $(git rev-parse HEAD)
  
 jobs:
-  on-success:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
  
-        - name: Test
-          run: |-
-            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-            docker build -t dave123456789/react-test -f ./client/Dockerfile.dev ./client
-            docker run -e CI=true dave123456789/react-test npm test
+      - name: Test
+        run: |-
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker build -t dave123456789/react-test -f ./client/Dockerfile.dev ./client
+          docker run -e CI=true dave123456789/react-test npm test
  
-        - name: Set Service Key
-          uses: 'google-github-actions/auth@v0'
-          with:
-           credentials_json: '${{ secrets.GKE_SA_KEY }}'
+      - name: Set Service Key
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GKE_SA_KEY }}'
  
-        - name: Set Project
-          uses: google-github-actions/setup-gcloud@v0
-          with:
-            project_id: multi-k8s-383721
+      - name: Set Project
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          project_id: multi-k8s-383721
  
-        - name: Auth
-          run: |-
-           gcloud --quiet auth configure-docker
+      - name: Auth
+        run: |-
+          gcloud --quiet auth configure-docker
  
-        - name: Get Credentials
-          uses: google-github-actions/get-gke-credentials@v0
-          with:
-            cluster_name: multi-cluster
-            location: us-west2-a
+      - name: Get Credentials
+        uses: google-github-actions/get-gke-credentials@v0
+        with:
+          cluster_name: multi-cluster
+          location: us-west2-a
  
-        - name: Build
-        # use unique naming for builds here so that I don't overwrite the elastic beanstalk 10-14 images
-        # note that no nginx images needed because routing done via ingress-service.yaml with K8s and ingress-nginx added separately to GKE
-          run: |-
-            docker build -t dave123456789/multi-client-k8s-gh:latest -t dave123456789/multi-client-k8s-gh:${{ env.SHA }} -f ./client/Dockerfile ./client
-            docker build -t dave123456789/multi-server-k8s-pgfix-gh:latest -t dave123456789/multi-server-k8s-pgfix-gh:${{ env.SHA }} -f ./server/Dockerfile ./server
-            docker build -t dave123456789/multi-worker-k8s-gh:latest -t dave123456789/multi-worker-k8s-gh:${{ env.SHA }} -f ./worker/Dockerfile ./worker
+      - name: Build
+      # use unique naming for builds here so that I don't overwrite the elastic beanstalk 10-14 images
+      # note that no nginx images needed because routing done via ingress-service.yaml with K8s and ingress-nginx added separately to GKE
+        run: |-
+          docker build -t dave123456789/multi-client-k8s-gh:latest -t dave123456789/multi-client-k8s-gh:${{ env.SHA }} -f ./client/Dockerfile ./client
+          docker build -t dave123456789/multi-server-k8s-pgfix-gh:latest -t dave123456789/multi-server-k8s-pgfix-gh:${{ env.SHA }} -f ./server/Dockerfile ./server
+          docker build -t dave123456789/multi-worker-k8s-gh:latest -t dave123456789/multi-worker-k8s-gh:${{ env.SHA }} -f ./worker/Dockerfile ./worker
       
-        - name: Push
-        # lastest is pushed because if someone runs kubectl apply -f k8s from build directory we want to insure they load current latest (this image)
-          run: |-
-            docker push dave123456789/multi-client-k8s-gh:latest
-            docker push dave123456789/multi-server-k8s-pgfix-gh:latest
-            docker push dave123456789/multi-worker-k8s-gh:latest
+      - name: Push
+      # lastest is pushed because if someone runs kubectl apply -f k8s from build directory we want to insure they load current latest (this image)
+          un: |-
+          docker push dave123456789/multi-client-k8s-gh:latest
+          docker push dave123456789/multi-server-k8s-pgfix-gh:latest
+          docker push dave123456789/multi-worker-k8s-gh:latest
  
-            docker push dave123456789/multi-client-k8s-gh:${{ env.SHA }}
-            docker push dave123456789/multi-server-k8s-pgfix-gh:${{ env.SHA }}
-            docker push dave123456789/multi-worker-k8s-gh:${{ env.SHA }}
+          docker push dave123456789/multi-client-k8s-gh:${{ env.SHA }}
+          docker push dave123456789/multi-server-k8s-pgfix-gh:${{ env.SHA }}
+          docker push dave123456789/multi-worker-k8s-gh:${{ env.SHA }}
  
-        - name: Apply
-          run: |-
-            kubectl apply -f k8s
-            kubectl set image deployments/server-deployment server=dave123456789/multi-server-k8s-pgfix-gh:${{ env.SHA }}
-            kubectl set image deployments/client-deployment client=dave123456789/multi-client-k8s-gh:${{ env.SHA }}
-            kubectl set image deployments/worker-deployment worker=dave123456789/multi-worker-k8s-gh:${{ env.SHA }}
-  
-  on-failure:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-        - run: echo 'The build failed testing'
+      - name: Apply
+        run: |-
+          kubectl apply -f k8s
+          kubectl set image deployments/server-deployment server=dave123456789/multi-server-k8s-pgfix-gh:${{ env.SHA }}
+          kubectl set image deployments/client-deployment client=dave123456789/multi-client-k8s-gh:${{ env.SHA }}
+          kubectl set image deployments/worker-deployment worker=dave123456789/multi-worker-k8s-gh:${{ env.SHA }}
+ 
