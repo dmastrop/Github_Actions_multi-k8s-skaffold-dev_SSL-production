@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+
+kind: Certificate
+metadata:
+  name: holinessinloveofchrist-com-tls
+spec:
+  secretName: holinessinloveofchrist-com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: holinessinloveofchrist.com
+  dnsNames:
+    - holinessinloveofchrist.com
+    - www.holinessinloveofchrist.com
