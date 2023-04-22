@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: dave123456789/multi-client-k8s-development
+          image: dave123456789/multi-client
           #image: stephengrider/multi-client
           ports:
             - containerPort: 3000
