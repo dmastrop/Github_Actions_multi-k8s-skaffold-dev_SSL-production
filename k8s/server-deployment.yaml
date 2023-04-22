@@ -15,7 +15,8 @@ spec:
       containers:
         - name: server
           #image: cygnetops/multi-server-pgfix-5-11
-          image: dave123456789/multi-server-10-14
+          image: dave123456789/multi-server-k8s-dev
+          #image: dave123456789/multi-server-10-14
           ports:
             - containerPort: 5000
           env:
