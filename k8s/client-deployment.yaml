@@ -18,5 +18,6 @@ spec:
           #image: dave123456789/multi-client
           #image: dave123456789/multi-client-10-14
           #image: stephengrider/multi-client
+          #image: test
           ports:
             - containerPort: 3000
