@@ -14,8 +14,9 @@ spec:
     spec:
       containers:
         - name: worker
+          image: dave123456789/multi-worker-k8s-dev-use
           #image: dave123456789/multi-worker-10-14
-          image: dave123456789/multi-worker-k8s-dev
+          #image: dave123456789/multi-worker-k8s-dev
           env:
             - name: REDIS_HOST
               value: redis-cluster-ip-service
