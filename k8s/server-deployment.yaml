@@ -14,7 +14,11 @@ spec:
     spec:
       containers:
         - name: server
-          image: dave123456789/multi-server-k8s-dev-use
+          # use multi-server-k8s-dev-use for docker development build (nodemon)
+          #image: dave123456789/multi-server-k8s-dev-use
+          # use server-skaffold for development injectable framework    
+          image: dave123456789/server-skaffold
+          
           #image: cygnetops/multi-server-pgfix-5-11
           #image: dave123456789/multi-server-k8s-dev
           #image: dave123456789/multi-server-10-14

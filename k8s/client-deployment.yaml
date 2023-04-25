@@ -14,7 +14,11 @@ spec:
     spec:
       containers:
         - name: client
-          image: dave123456789/multi-client-k8s-dev-use
+          # use multi-client-k8s-dev-use for docker development build (react)
+          #image: dave123456789/multi-client-k8s-dev-use
+          # use client-skaffold for development injectable framework    
+          image: dave123456789/client-skaffold
+         
           #image: dave123456789/multi-client-k8s-dev1
           #image: dave123456789/multi-client
           #image: dave123456789/multi-client-10-14

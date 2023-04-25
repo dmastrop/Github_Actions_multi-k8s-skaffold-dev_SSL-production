@@ -1,4 +1,8 @@
 FROM node:16-alpine
+#add the following 2 lines for development dynamic changes and skaffold
+ENV CI=true
+ENV WDS_SOCKET_PORT=0
+
 WORKDIR '/app'
 COPY ./package.json ./
 RUN npm install

@@ -14,7 +14,12 @@ spec:
     spec:
       containers:
         - name: worker
-          image: dave123456789/multi-worker-k8s-dev-use
+          # use multi-server-k8s-dev-use for docker development build (nodemon)
+          #image: dave123456789/multi-worker-k8s-dev-use
+          # use worker-skaffold for development injectable framework    
+          image: dave123456789/worker-skaffold
+          
+          #image: dave123456789/worker-skaffold
           #image: dave123456789/multi-worker-10-14
           #image: dave123456789/multi-worker-k8s-dev
           env:
