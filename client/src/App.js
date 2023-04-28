@@ -18,7 +18,7 @@ function App() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            k8s-TAKE2-1 mod with ssl setup 3rd 2nd dev Production br Learn React Fib calculator
+            k8s-TAKE2-2 mod with ssl setup 3rd 2nd dev Production br Learn React Fib calculator
           </a>
           <Link to="/">Home</Link>
           <Link to="/otherpage">Other Page</Link>
