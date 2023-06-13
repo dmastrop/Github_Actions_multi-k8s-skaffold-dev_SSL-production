@@ -1,0 +1,59 @@
+Note that /complex project now is for Section 14 k8s complex
+
+The former project Section 11 is now using /complex-elastic-beanstalk-final and NOT /complex
+
+############
+The repo for /complex pointing to github dmastrop/multi-docker is to be used with /complex-elastic-beanstalk-final and NOT with /complex any longer.  Do the following:
+
+###########
+On /complex-elastic-beanstalk-final verify remote "complex" is using dmastrop/multi-docker:
+
+davemastropolo@Margarets-MacBook-Air complex-elastic-beanstalk-final % git remote -v
+complex https://github.com/dmastrop/multi-docker.git (fetch)
+complex https://github.com/dmastrop/multi-docker.git (push)
+davemastropolo@Margarets-MacBook-Air complex-elastic-beanstalk-final % git remote show complex
+* remote complex
+  Fetch URL: https://github.com/dmastrop/multi-docker.git
+  Push  URL: https://github.com/dmastrop/multi-docker.git
+  HEAD branch: master
+  Remote branch:
+    master tracked
+  Local ref configured for 'git push':
+    master pushes to master (up to date)
+
+############
+On /complex (which is to be used for complex k8s):
+Remove the remote repo complex immediately to avoid overwriting the project above.
+
+davemastropolo@Margarets-MacBook-Air complex % git remote -v
+complex https://github.com/dmastrop/multi-docker.git (fetch)
+complex https://github.com/dmastrop/multi-docker.git (push)
+davemastropolo@Margarets-MacBook-Air complex % git remote remove complex
+davemastropolo@Margarets-MacBook-Air complex % git remote -v
+davemastropolo@Margarets-MacBook-Air complex % git remote show complex
+fatal: 'complex' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+########
+will add a remote repo "complexk8s" for /complex k8s project in training module 251
+
+########
+on /complex-elastic-beanstalk-final note that deployed dockerhub images are 
+
+    - run: docker push dave123456789/multi-client-10-14
+    - run: docker push dave123456789/multi-nginx-10-14
+    - run: docker push dave123456789/multi-server-10-14
+    - run: docker push dave123456789/multi-worker-10-14
+
+The other images on dockerhub for the multi-client are for the /complex project of Section 14 and the same images above *-10-14 can also be used for kubernetes Section 14 as well. They have been verified as working locally with a rebuild:
+
+
+#########
+in /complex-elastic-beanstalk-final/client directory for example, to rebuild multi-client from scratch:
+
+docker build -t dave123456789/multi-client .
+docker push dave123456789/mulit-client   to push to dockerhub.
+
