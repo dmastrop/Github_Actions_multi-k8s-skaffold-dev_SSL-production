@@ -44,18 +44,18 @@ jobs:
       - name: Build
       # use unique naming for builds here so that I don't overwrite the elastic beanstalk 10-14 images
       # note that no nginx images needed because routing done via ingress-service.yaml with K8s and ingress-nginx added separately to GKE
-        run: |-
+
 #          docker build -t dave123456789/multi-client-k8s-gh_take2:latest -t dave123456789/multi-client-k8s-gh_take2:${{ env.SHA }} -f ./client/Dockerfile ./client
 #          docker build -t dave123456789/multi-server-k8s-pgfix-gh_take2:latest -t dave123456789/multi-server-k8s-pgfix-gh_take2:${{ env.SHA }} -f ./server/Dockerfile ./server
 #          docker build -t dave123456789/multi-worker-k8s-gh_take2:latest -t dave123456789/multi-worker-k8s-gh_take2:${{ env.SHA }} -f ./worker/Dockerfile ./worker
-
+        run: |-
           docker build -t dave123456789/multi-client-k8s-gh_take3:latest -t dave123456789/multi-client-k8s-gh_take3:${{ env.SHA }} -f ./client/Dockerfile ./client
           docker build -t dave123456789/multi-server-k8s-pgfix-gh_take3:latest -t dave123456789/multi-server-k8s-pgfix-gh_take3:${{ env.SHA }} -f ./server/Dockerfile ./server
           docker build -t dave123456789/multi-worker-k8s-gh_take3:latest -t dave123456789/multi-worker-k8s-gh_take3:${{ env.SHA }} -f ./worker/Dockerfile ./worker
       
       - name: Push
       # lastest is pushed because if someone runs kubectl apply -f k8s from build directory we want to insure they load current latest (this image)
-        run: |-
+
 #          docker push dave123456789/multi-client-k8s-gh_take2:latest
 #          docker push dave123456789/multi-server-k8s-pgfix-gh_take2:latest
 #          docker push dave123456789/multi-worker-k8s-gh_take2:latest
@@ -63,7 +63,7 @@ jobs:
 #          docker push dave123456789/multi-client-k8s-gh_take2:${{ env.SHA }}
 #          docker push dave123456789/multi-server-k8s-pgfix-gh_take2:${{ env.SHA }}
 #          docker push dave123456789/multi-worker-k8s-gh_take2:${{ env.SHA }}
-
+        run: |-
           docker push dave123456789/multi-client-k8s-gh_take3:latest
           docker push dave123456789/multi-server-k8s-pgfix-gh_take3:latest
           docker push dave123456789/multi-worker-k8s-gh_take3:latest
@@ -73,12 +73,12 @@ jobs:
           docker push dave123456789/multi-worker-k8s-gh_take3:${{ env.SHA }}
  
       - name: Apply
-        run: |-
-          kubectl apply -f k8s
+
 #          kubectl set image deployments/server-deployment server=dave123456789/multi-server-k8s-pgfix-gh_take2:${{ env.SHA }}
 #          kubectl set image deployments/client-deployment client=dave123456789/multi-client-k8s-gh_take2:${{ env.SHA }}
 #          kubectl set image deployments/worker-deployment worker=dave123456789/multi-worker-k8s-gh_take2:${{ env.SHA }}
-
+        run: |-
+          kubectl apply -f k8s
           kubectl set image deployments/server-deployment server=dave123456789/multi-server-k8s-pgfix-gh_take3:${{ env.SHA }}
           kubectl set image deployments/client-deployment client=dave123456789/multi-client-k8s-gh_take3:${{ env.SHA }}
           kubectl set image deployments/worker-deployment worker=dave123456789/multi-worker-k8s-gh_take3:${{ env.SHA }}
