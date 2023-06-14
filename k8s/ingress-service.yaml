@@ -22,7 +22,7 @@ spec:
         - cloudnetworktesting.com
         - www.cloudnetworktesting.com
       #secretName: holinessinloveofchrist-com
-      secretName: cloudneworktesting-com
+      secretName: cloudnetworktesting-com
   rules:
    # added host: and everything needs to indent:
     #- host: holinessinloveofchrist.com
