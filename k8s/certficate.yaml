@@ -2,13 +2,18 @@ apiVersion: cert-manager.io/v1
 
 kind: Certificate
 metadata:
-  name: holinessinloveofchrist-com-tls
+  #name: holinessinloveofchrist-com-tls
+  name: cloudnetworktesting-com-tls
 spec:
-  secretName: holinessinloveofchrist-com
+  #secretName: holinessinloveofchrist-com
+  secretName: cloudnetworktesting-com
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  commonName: holinessinloveofchrist.com
+  #commonName: holinessinloveofchrist.com
+  commonName: cloudnetworktesting.com
   dnsNames:
-    - holinessinloveofchrist.com
-    - www.holinessinloveofchrist.com
+    #- holinessinloveofchrist.com
+    #- www.holinessinloveofchrist.com
+    - cloudnetworktesting.com
+    - www.cloudnetworktesting.com

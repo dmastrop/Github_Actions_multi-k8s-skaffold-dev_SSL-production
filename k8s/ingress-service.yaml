@@ -17,12 +17,16 @@ spec:
   # added:
   tls:
     - hosts:
-        - holinessinloveofchrist.com
-        - www.holinessinloveofchrist.com
-      secretName: holinessinloveofchrist-com
+        #- holinessinloveofchrist.com
+        #- www.holinessinloveofchrist.com
+        - cloudnetworktesting.com
+        - www.cloudnetworktesting.com
+      #secretName: holinessinloveofchrist-com
+      secretName: cloudneworktesting-com
   rules:
    # added host: and everything needs to indent:
-    - host: holinessinloveofchrist.com
+    #- host: holinessinloveofchrist.com
+    - host: cloudnetworktesting.com
       http:
         paths:
           - path: /?(.*)
@@ -40,7 +44,8 @@ spec:
                 port:
                   number: 5000
     # added host and everything else needs to indent:
-    - host: www.holinessinloveofchrist.com
+    #- host: www.holinessinloveofchrist.com
+    - host: www.cloudnetworktesting.com
       http:
         paths:
           - path: /?(.*)
